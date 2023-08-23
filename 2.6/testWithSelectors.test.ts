@@ -1,4 +1,4 @@
-import {Builder, By, Capabilities, WebDriver} from "selenium-webdriver"
+import {Builder, until, By, Capabilities, WebDriver} from "selenium-webdriver"
 
 const chromedriver = require("chromedriver")
 
@@ -12,22 +12,26 @@ describe("Filling in the blanks", () => {
         await driver.quit();
     })
 
-    const hdrInput: By = By. //fill in the blank
-    const mkeInput: By = By. //fill in the blank
-    const oaiInput: By = By. //fill in the blank
-    const nameInput: By = By. //fill in the blank
-    const clrBtn: By = By. //fill in blank 
-    const submitBtn: By = By. //fill in blank
-    const errorMsg: By = By. // fill in blank 
+    const hdrInput: By = By.xpath('//input[@name="hdrInput"]')
+    const mkeInput: By = By.xpath('//input[@name="mkeInput"]')
+    const oaiInput: By = By.xpath('//input[@name="oriInput"]')
+    const nameInput: By = By.xpath('//input[@name="namInput"]')
+    const clrBtn: By = By.xpath('//button[@id="clearBtn"]')
+    const submitBtn: By = By.xpath('//button[@id="saveBtn"]')
+    const errorMsg: By = By.xpath('//p[@alt="is"]')
 
-    test("filling in the blanks for real", () => {
-        await driver.findElement(hdrInput).sendKeys("Change this")
-        await driver.findElement(mkeInput).sendKeys("change this")
-        await driver.findElement(oaiInput).sendKeys("change this")
-        await driver.findElement(nameInput).sendKeys("change this")
-        await driver.findElement(submitBtn).click()
-        expect(errorMsg).toContain("Errors Received:")
-        await driver.findElement(clrBtn).click()
-        
+    test("filling in the blanks for real", async () => {
+        await driver.findElement(hdrInput).sendKeys("Hello World");
+        await driver.findElement(mkeInput).sendKeys("Hi");
+        await driver.findElement(oaiInput).sendKeys("LOL");
+        await driver.findElement(nameInput).sendKeys("Nick Mullen");
+        await driver.findElement(submitBtn).click();
+        await driver.wait(until.elementLocated(errorMsg));
+        expect(await (await driver.findElement(errorMsg)).getText()).toBe(
+            "Errors Received:");
+        //expect(errorMsg).toContain("Errors Received:");
+        await driver.findElement(clrBtn).click();
+        await driver.sleep(200);
+
     })
 })
