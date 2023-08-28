@@ -18,6 +18,7 @@ const chromedriver = require("chromedriver")
       constructor(driver: WebDriver){
           this.driver = driver
       }
+      // Methods
           async navigate() {
             await this.driver.get(this.url)
             await this.driver.wait(until.elementLocated(this.header))

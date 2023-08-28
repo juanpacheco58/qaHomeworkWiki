@@ -29,6 +29,8 @@ describe("Filling in the blanks", () => {
         await driver.wait(until.elementLocated(errorMsg));
         expect(await (await driver.findElement(errorMsg)).getText()).toBe(
             "Errors Received:");
+        // let errorText = await driver.findElement(errorMsg.getText())    
+        // expect 
         //expect(errorMsg).toContain("Errors Received:");
         await driver.findElement(clrBtn).click();
         await driver.sleep(200);
